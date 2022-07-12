@@ -19,5 +19,27 @@ contract Decentratwitter is ERC721URIStorage {
         uint256 tipAmount;
         address payable author;
     }
+
+    event PostCreated(
+        uint256 id,
+        string hash,
+        uint256 tipAmount,
+        address payable author
+    );
+
+    event PostTipped(
+        uint256 id,
+        string hash,
+        uint256 tipAmount,
+        address payable author
+    );
+
     constructor() ERC721("Decentratwitter", "DAPP") {}
+
+    function mint(string memory _tokenURI) external returns(uint256){
+        tokenCount++;
+        _safeMint(msg.sender, tokenCount); // provided to us from the inherited contract
+        _setTokenURI(tokenCount, _tokenURI);
+        return tokenCount;
+    }
 }
